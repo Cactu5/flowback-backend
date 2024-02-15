@@ -1,0 +1,39 @@
+services:
+  app:
+    restart: unless-stopped
+    container_name: flowback-backend
+    image: flowback-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+#    volumes:
+#      - .:/app:Z
+    depends_on:
+      - postgres
+#      - redis
+#      - rabbitmq
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=flowback
+      - POSTGRES_USER=flowbackuser
+      - POSTGRES_PASSWORD=password123
+    container_name: postgres
+#  redis:
+#    image: redis:5
+#    container_name: redsi
+#  rabbitmq:
+#    container_name: rabbitmq
+#    image: rabbitmq:3.10
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=flowback
+#      - RABBITMQ_DEFAULT_PASS=flowback
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
