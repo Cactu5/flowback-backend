@@ -16,6 +16,8 @@ services:
       - postgres
 #      - redis
 #      - rabbitmq
+    networks:
+      - flowback-network-1
   postgres:
     image: postgres
     ports:
@@ -25,6 +27,8 @@ services:
       - POSTGRES_USER=flowbackuser
       - POSTGRES_PASSWORD=password123
     container_name: postgres
+    networks:
+      - flowback-network-1
 #  redis:
 #    image: redis:5
 #    container_name: redsi
@@ -37,3 +41,7 @@ services:
 #    ports:
 #      - "5672:5672"
 #      - "15672:15672"
+
+networks:
+  flowback-network-1:
+    external: true
